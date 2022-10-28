@@ -224,6 +224,12 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+
+            INSERT into cities(name, rating, country_id)
+            VALUES 
+                ('Portland', 5, 187),
+                ('New York', 3, 187),
+                ('Bangkok', 4, 174);
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
@@ -267,6 +273,8 @@ module.exports = {
                 cities AS city
             JOIN 
                 countries AS country ON country.country_id = city.country_id
+            ORDER BY city.rating
+                DESC
         `)
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err))
